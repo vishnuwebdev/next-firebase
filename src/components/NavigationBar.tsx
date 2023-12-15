@@ -1,12 +1,12 @@
 "use client";
-import { HOME_ROUTE, LOGIN_ROUTE, PROFILE_ROUTE, REGISTER_ROUTE } from "@/constants/routes";
+import { FIRESTORE_ROUTE, HOME_ROUTE, LOGIN_ROUTE, PROFILE_ROUTE, REGISTER_ROUTE } from "@/constants/routes";
 import { AuthContext } from "@/provider/AuthProvider";
 import { auth } from "@/services/firebase";
 import { signOut } from "firebase/auth";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-const Header = () => {
+const NavigationBar = () => {
     const {user}:any = AuthContext();
     const router = useRouter();
     const logOut = () => {
@@ -30,6 +30,7 @@ const Header = () => {
                     }
                     {user?.isLogin &&
                         <>
+                            <Link href={FIRESTORE_ROUTE}><li>FireStore</li></Link>
                             <Link href={PROFILE_ROUTE}><li>Profile</li></Link>
                             <li className=" cursor-pointer" onClick={logOut}>Logout</li>
                         </>
@@ -40,4 +41,4 @@ const Header = () => {
     )
 }
 
-export default Header;
+export default NavigationBar;

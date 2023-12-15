@@ -1,3 +1,4 @@
 export type SubmitButtonT = {
-    label:string
-}
+  label: string;
+  large?: boolean;
+};

@@ -18,10 +18,12 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  /* background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb)); */
+}
+
+thead tr th {
+  @apply py-4 dark:text-base bg-gray-600 text-white;
+}
+
+table tbody tr td {
+  @apply py-4 bg-white text-black text-sm text-center border-b-[1px];
 }

@@ -1,25 +1,47 @@
-import { InputFieldT } from "@/types/FormTypes"
+import { InputFieldT } from "@/types/FormTypes";
 
-const InputField = ({type, name, placeholder,label, register, error}:InputFieldT) => {
-    return (
-        <div className="my-2 flex flex-col">
-            <label className="py-1 text-md text-black/50 font-mono font-medium">
-                {label}
-            </label>
-            <input 
-                {...register(name)}
-                className="px-3 py-2 text-black border rounded-md border-black/30 placeholder:text-sm text-sm"
-                type={type} 
-                name={name} 
-                autoComplete="off"
-                placeholder={placeholder} 
-                id={`field_${name}`} 
-            />
-            {
-                error && <span className=" text-red-500 py-1">{error.message}</span>
-            }
-        </div>
-    )
+const InputField = ({
+  type,
+  name,
+  placeholder,
+  label,
+  register,
+  error,
+  containerClass,
+  hint,
+}: InputFieldT) => {
+  const inputClass = error
+    ? "border-red-500/50 text-red-400 placeholder:text-red-200 "
+    : "border-gray-500/50 text-black";
+
+  return (
+    <div className={` ${containerClass} `}>
+      <label
+        className="block uppercase tracking-wide  text-xs font-bold mb-2 text-black"
+        htmlFor={name}
+      >
+        {label}
+      </label>
+      <input
+        className={`appearance-none block w-full bg-grey-lighter rounded py-3 px-4 mb-3 border-[1px] ${inputClass}`}
+        id={name}
+        type={type}
+        name={name}
+        {...register(name)}
+        placeholder={placeholder}
+      />
+      {error && (
+        <p className="text-red-500 text-xs italic mb-2 p-1 bg-red-300/20  px-3 rounded-lg border-red-500/20 border-[1px] ">
+          {error.message}
+        </p>
+      )}
+      {hint && (
+        <p className="text-gray-800 px-3 bg-yellow-300/30 p-1 rounded-lg text-xs italic">
+          {hint}
+        </p>
+      )}
+    </div>
+  );
 };
 
 export default InputField;
