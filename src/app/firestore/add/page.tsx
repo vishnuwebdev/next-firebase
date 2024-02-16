@@ -1,7 +1,12 @@
 "use client";
-import { ContainerCard, EmployeeList } from "@/components";
+import {
+  ContainerCard,
+  EmployeeForm,
+  EmployeeList,
+  Heading,
+} from "@/components";
 import TableHeading from "@/components/TableHeading";
-import { FIRESTORE_ROUTE_ADD } from "@/constants/routes";
+import { FIRESTORE_ROUTE } from "@/constants/routes";
 import useAuthentication from "@/hooks/useAuthentication";
 import { useRouter } from "next/navigation";
 
@@ -10,7 +15,7 @@ const Firestore = () => {
   const router = useRouter();
 
   const handleAction = () => {
-    router.push(FIRESTORE_ROUTE_ADD);
+    router.push(FIRESTORE_ROUTE);
   };
 
   return (
@@ -18,9 +23,9 @@ const Firestore = () => {
       <TableHeading
         title="Firestore Actions"
         action={handleAction}
-        actionLabel="Add New"
+        actionLabel={"List"}
       />
-      <EmployeeList />
+      <EmployeeForm />
     </ContainerCard>
   );
 };

@@ -9,6 +9,7 @@ const InputField = ({
   error,
   containerClass,
   hint,
+  defaultValue,
 }: InputFieldT) => {
   const inputClass = error
     ? "border-red-500/50 text-red-400 placeholder:text-red-200 "
@@ -25,6 +26,7 @@ const InputField = ({
       <input
         className={`appearance-none block w-full bg-grey-lighter rounded py-3 px-4 mb-3 border-[1px] ${inputClass}`}
         id={name}
+        defaultValue={defaultValue}
         type={type}
         name={name}
         {...register(name)}

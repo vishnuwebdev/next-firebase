@@ -1,4 +1,4 @@
-export { default as Button } from "./Button";
+export * from "./Button";
 export { default as NavigationBar } from "./NavigationBar";
 export { default as Heading } from "./Heading";
 export { default as InputField } from "./InputField";

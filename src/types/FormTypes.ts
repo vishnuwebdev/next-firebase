@@ -9,4 +9,5 @@ export type InputFieldT = {
   error: undefined | ErrorOption;
   containerClass?: string;
   hint?: string;
+  defaultValue?: string;
 };

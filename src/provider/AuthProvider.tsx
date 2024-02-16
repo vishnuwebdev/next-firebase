@@ -19,14 +19,11 @@ const AuthProvider = ({ children }: any) => {
 
   useEffect(() => {
     const subscribe = auth.onAuthStateChanged((userState) => {
-      console.log("Auth State is not changed");
       setUser({ isLogin: userState ? true : false, user: userState });
       setLoading(false);
     });
     return subscribe;
   }, []);
-
-  // console.log("User State ",user.user)
 
   return (
     <Context.Provider value={{ user, setUser }}>

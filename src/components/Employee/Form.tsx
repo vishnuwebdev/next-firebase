@@ -3,16 +3,29 @@
 import { firestoreValidation } from "@/validationSchema/firestore";
 import { InputField } from "..";
 import SubmitButton from "../Button";
+import { useState } from "react";
+import { db } from "@/services/firebase";
+import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 
-const EmployeeForm = () => {
+const EmployeeForm = ({ updateId }: { updateId?: string }) => {
   const {
     handleSubmit,
     register,
+    reset,
     formState: { errors },
   } = firestoreValidation();
 
+  const [formData, setFormData] = useState<any>();
+
   const submitForm = async (values: any) => {
-    console.log("Form Values ", values);
+    const ref = doc(db, "employee", "uniqueKey2");
+    setDoc(ref, values)
+      .then((response) => {
+        console.log("success");
+      })
+      .catch((e) => {
+        console.log("failed");
+      });
   };
 
   return (
@@ -24,6 +37,7 @@ const EmployeeForm = () => {
         <InputField
           register={register}
           error={errors.name}
+          defaultValue={formData?.name}
           type="text"
           placeholder="Enter Your Name Here..."
           name="name"
@@ -33,6 +47,7 @@ const EmployeeForm = () => {
         <InputField
           register={register}
           error={errors.jobRole}
+          defaultValue={formData?.jobRole}
           type="text"
           placeholder="Enter Your Job Role Here..."
           name="jobRole"
@@ -44,6 +59,7 @@ const EmployeeForm = () => {
         <InputField
           register={register}
           error={errors.experience}
+          defaultValue={formData?.experience}
           type="text"
           placeholder="Enter Your Experince Here..."
           name="experience"
@@ -55,6 +71,7 @@ const EmployeeForm = () => {
         <InputField
           register={register}
           error={errors.organisation}
+          defaultValue={formData?.organisation}
           type="text"
           placeholder="Enter Your Organisation Here..."
           name="organisation"
@@ -63,7 +80,7 @@ const EmployeeForm = () => {
         />
       </div>
 
-      <SubmitButton label="Save" large />
+      <SubmitButton label="Submit" large />
     </form>
   );
 };
