@@ -3,29 +3,40 @@
 import { firestoreValidation } from "@/validationSchema/firestore";
 import { InputField } from "..";
 import SubmitButton from "../Button";
-import { useState } from "react";
-import { db } from "@/services/firebase";
-import { addDoc, collection, doc, setDoc } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import useFirestore from "@/hooks/useFirestore";
 
-const EmployeeForm = ({ updateId }: { updateId?: string }) => {
+const EmployeeForm = ({ data }: any) => {
   const {
     handleSubmit,
     register,
     reset,
     formState: { errors },
   } = firestoreValidation();
-
+  const { storeData, updateData } = useFirestore();
   const [formData, setFormData] = useState<any>();
 
+  useEffect(() => {
+    if (data) {
+      const { id, ...formInitialValues } = data;
+      reset(formInitialValues);
+    }
+  }, [data]);
+
   const submitForm = async (values: any) => {
-    const ref = doc(db, "employee", "uniqueKey2");
-    setDoc(ref, values)
-      .then((response) => {
-        console.log("success");
-      })
-      .catch((e) => {
-        console.log("failed");
-      });
+    if (data) {
+      updateData(data.id, values)
+        .then((response) => console.log("Recored Updated"))
+        .catch((e) => console.log("error", e));
+    } else {
+      storeData(values)
+        .then((response) => {
+          console.log("success");
+        })
+        .catch((e) => {
+          console.log("failed");
+        });
+    }
   };
 
   return (

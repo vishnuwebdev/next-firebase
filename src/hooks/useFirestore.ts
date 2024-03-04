@@ -11,12 +11,12 @@ import {
 } from "firebase/firestore";
 
 const useFirestore = () => {
-  const storeData = async (data: any) => {
+  const storeDataWithCustomId = async (data: any) => {
     const ref = doc(db, "employee", "1");
     return await setDoc(ref, data);
   };
 
-  const storeDataWithCustomId = async (data: any) => {
+  const storeData = async (data: any) => {
     const ref = collection(db, "employee");
     return await addDoc(ref, data);
   };
