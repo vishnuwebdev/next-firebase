@@ -1,4 +1,4 @@
-import { db } from "@/services/firebase";
+import { db, storage } from "@/services/firebase";
 import {
   collection,
   doc,
@@ -9,6 +9,15 @@ import {
   getDoc,
   updateDoc,
 } from "firebase/firestore";
+
+import {
+  ref as storageRef,
+  uploadBytesResumable,
+  getDownloadURL,
+  list,
+  deleteObject,
+  listAll,
+} from "firebase/storage";
 
 const useFirestore = () => {
   const storeDataWithCustomId = async (data: any) => {
@@ -41,6 +50,33 @@ const useFirestore = () => {
     return await updateDoc(ref, data);
   };
 
+  const uploadFile = async (file: any) => {
+    const ref = storageRef(storage, "custom/sample3.png");
+    return await uploadBytesResumable(ref, file)
+      .then((e) => console.log("success", e))
+      .catch((e) => console.log("error caught", e));
+  };
+
+  const removeFile = async () => {
+    const ref = storageRef(storage, "custom/sample.png");
+    return await deleteObject(ref)
+      .then((e) => console.log("File Removed"))
+      .catch((e) => console.log("error caught", e));
+  };
+
+  const getFileList = async () => {
+    const ref = storageRef(storage, "custom");
+    return await listAll(ref)
+      .then((response: any) => {
+        response.items.forEach(async (itemRef: any) => {
+          await getDownloadURL(itemRef)
+            .then((url) => console.log("file url ", url))
+            .catch((e) => console.log("error caught", e));
+        });
+      })
+      .catch((e) => console.log("error caught", e));
+  };
+
   return {
     storeData,
     storeDataWithCustomId,
@@ -48,6 +84,9 @@ const useFirestore = () => {
     deleteRecord,
     getDataById,
     updateData,
+    uploadFile,
+    removeFile,
+    getFileList,
   };
 };
 

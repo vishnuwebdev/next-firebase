@@ -4,3 +4,4 @@ export const PROFILE_ROUTE = "/profile";
 export const FIRESTORE_ROUTE = "/firestore";
 export const FIRESTORE_ROUTE_ADD = "/firestore/add";
 export const HOME_ROUTE = "/";
+export const EDIT_IMAGE_ROUTE = "/file-storage";

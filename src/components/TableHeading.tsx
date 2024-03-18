@@ -6,7 +6,9 @@ const TableHeading = ({ title, actionLabel, action }: any) => {
       <span className="text-3xl text-black font-mono font-semibold bg-yellow-300 p-3 rounded-lg">
         {title}
       </span>
-      <PrimaryButton action={action} label={actionLabel} />
+      {action && actionLabel && (
+        <PrimaryButton action={action} label={actionLabel} />
+      )}
     </div>
   );
 };
